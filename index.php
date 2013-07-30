@@ -11,7 +11,7 @@
 
 
 //chemin jusqu'au fichier de conf de WampServer
-$wampConfFile = '/etc/apache2/apache2.conf';
+$apache2ConfFile = '/etc/apache2/apache2.conf';
 
 //chemin jusqu'aux fichiers alias
 $aliasDir = '../alias/';
@@ -20,68 +20,68 @@ $aliasDir = '../alias/';
 $vhostsDir = '../vhosts/';
 
 // on charge le fichier de conf locale
-if (!is_file($wampConfFile))
+if (!is_file($apache2ConfFile))
     die ('Unable to open WampServer\'s config file, please change path in index.php file');
-//require $wampConfFile;
-$fp = fopen($wampConfFile,'r');
-$wampConfFileContents = fread ($fp, filesize ($wampConfFile));
+//require $apache2ConfFile;
+$fp = fopen($apache2ConfFile,'r');
+$apache2ConfFileContents = fread ($fp, filesize ($apache2ConfFile));
 fclose ($fp);
 
 
 //on rs les versions des applis
-preg_match('|phpVersion = (.*)\n|',$wampConfFileContents,$result);
+preg_match('|phpVersion = (.*)\n|',$apache2ConfFileContents,$result);
 $phpVersion = str_replace('"','',$result[1]);
-preg_match('|apacheVersion = (.*)\n|',$wampConfFileContents,$result);
+preg_match('|apacheVersion = (.*)\n|',$apache2ConfFileContents,$result);
 $apacheVersion = str_replace('"','',$result[1]);
-preg_match('|mysqlVersion = (.*)\n|',$wampConfFileContents,$result);
+preg_match('|mysqlVersion = (.*)\n|',$apache2ConfFileContents,$result);
 $mysqlVersion = str_replace('"','',$result[1]);
-preg_match('|wampserverVersion = (.*)\n|',$wampConfFileContents,$result);
+preg_match('|wampserverVersion = (.*)\n|',$apache2ConfFileContents,$result);
 $wampserverVersion = str_replace('"','',$result[1]);
 
 
 
 // repertoires  gnorer dans les projets
-$projectsListIgnore = array ('.','..');
+$projectNullTextsListIgnore = array ('.','..');
 
 
 // textes
-$langues = array(
+$languages = array(
 	'en' => array(
-		'langue' => 'English',
-		'autreLangue' => 'Version Fran&ccedil;aise',
-		'autreLangueLien' => 'fr',
-		'titreHtml' => 'WAMPSERVER Homepage',
-		'titreConf' => 'Server Configuration',
-		'versa' => 'Apache Version :',
-		'versp' => 'PHP Version :',
-		'versm' => 'MySQL Version :',
-		'phpExt' => 'Loaded Extensions : ',
-		'titrePage' => 'Tools',
-		'txtProjet' => 'Your Projects',
-		'txtNoProjet' => 'No projects yet.<br />To create a new one, just create a directory in \'www\'.',
-		'txtAlias' => 'Your Aliases',
-		'txtNoAlias' => 'No Alias yet.<br />To create a new one, use the WAMPSERVER menu.',
-		'txtVhosts' => 'Your Virtual Hosts',
-		'txtNoVhosts' => 'No Virtual Hosts yet.<br />To create a new one, use the WAMPSERVER menu.',
+		'language' => 'English',
+		'otherLanguage' => 'Version Fran&ccedil;aise',
+		'otherLanguageAbbreviation' => 'fr',
+		'htmlTitleText' => 'WAMPSERVER Homepage',
+		'serverTitleText' => 'Server Configuration',
+		'apacheVersion' => 'Apache Version :',
+		'phpVersion' => 'PHP Version :',
+		'mysqlText' => 'MySQL Version :',
+		'phpExts' => 'Loaded Extensions : ',
+		'toolText' => 'Tools',
+		'projectNullText' => 'Your Projects',
+		'projectNullText' => 'No Projects yet.<br />To create a new one, just create a directory in \'www\'.',
+		'aliasText' => 'Your Aliases',
+		'aliasNullText' => 'No Alias yet.<br />To create a new one, use the WAMPSERVER menu.',
+		'vhostsText' => 'Your Virtual Hosts',
+		'vhostsNullText' => 'No Virtual Hosts yet.<br />To create a new one, use the WAMPSERVER menu.',
 		'faq' => 'http://www.en.wampserver.com/faq.php'
 	),
 	'fr' => array(
-		'langue' => 'Fran?s',
-		'autreLangue' => 'English Version',
-		'autreLangueLien' => 'en',
-		'titreHtml' => 'Accueil WAMPSERVER',
-		'titreConf' => 'Configuration Serveur',
-		'versa' => 'Version de Apache:',
-		'versp' => 'Version de PHP:',
-		'versm' => 'Version de MySQL:',
-		'phpExt' => 'Extensions Charg&eacute;es: ',
-		'titrePage' => 'Outils',
-		'txtProjet' => 'Vos Projets',
-		'txtNoProjet' => 'Aucun projet.<br /> Pour en ajouter un nouveau, cr&eacute;ez simplement un r&eacute;pertoire dans \'www\'.',
-		'txtAlias' => 'Vos Alias',
-		'txtNoAlias' => 'Aucun alias.<br /> Pour en ajouter un nouveau, utilisez le menu de WAMPSERVER.',
-		'txtVhosts' => 'Vos Virtual Hosts',
-		'txtNoVhosts' => 'Aucun Virtual Hosts encore.<br />Pour en ajouter un nouveau, utilisez le menu de WAMPSERVER.',
+		'language' => 'Fran?s',
+		'otherLanguage' => 'English Version',
+		'otherLanguageAbbreviation' => 'en',
+		'htmlTitleText' => 'Accueil WAMPSERVER',
+		'serverTitleText' => 'Configuration Serveur',
+		'apacheVersion' => 'Version de Apache:',
+		'phpVersion' => 'Version de PHP:',
+		'mysqlText' => 'Version de MySQL:',
+		'phpExts' => 'Extensions Charg&eacute;es: ',
+		'toolText' => 'Outils',
+		'projectNullText' => 'Vos Projets',
+		'projectNullText' => 'Aucun projet.<br /> Pour en ajouter un nouveau, cr&eacute;ez simplement un r&eacute;pertoire dans \'www\'.',
+		'aliasText' => 'Vos Alias',
+		'aliasNullText' => 'Aucun alias.<br /> Pour en ajouter un nouveau, utilisez le menu de WAMPSERVER.',
+		'vhostsText' => 'Vos Virtual Hosts',
+		'vhostsNullText' => 'Aucun Virtual Hosts encore.<br />Pour en ajouter un nouveau, utilisez le menu de WAMPSERVER.',
 		'faq' => 'http://www.wampserver.com/faq.php'
 	)
 );
@@ -260,22 +260,22 @@ if (isset($_GET['img']))
 
 
 
-// Definition de la langue et des textes
+// Definition de la language et des textes
 
 if (isset ($_GET['lang']))
 {
-  $langue = htmlspecialchars($_GET['lang'],ENT_QUOTES);
-  if ($langue != 'en' && $langue != 'en' ) {
-   $langue = 'fr';
+  $language = htmlspecialchars($_GET['lang'],ENT_QUOTES);
+  if ($language != 'en' && $language != 'en' ) {
+   $language = 'fr';
   }
 }
 elseif (isset ($_SERVER['HTTP_ACCEPT_LANGUAGE']) AND preg_match("/^fr/", $_SERVER['HTTP_ACCEPT_LANGUAGE']))
 {
-	$langue = 'fr';
+	$language = 'fr';
 }
 else
 {
-	$langue = 'en';
+	$language = 'en';
 }
 
 //initialisation
@@ -296,7 +296,7 @@ if (is_dir($aliasDir))
     closedir($handle);
 }
 if (!isset($aliasContents))
-	$aliasContents = $langues[$langue]['txtNoAlias'];
+	$aliasContents = $languages[$language]['aliasNullText'];
 
 
 $vhostsContents = '';
@@ -316,32 +316,32 @@ if (is_dir($vhostsDir))
     closedir($handle);
 }
 if (!isset($vhostsContents))
-	$vhostsContents = $langues[$langue]['txtNovhosts'];
+	$vhostsContents = $languages[$language]['vhostsNullText'];
 
 
 
 // recuperation des projets
 $handle=opendir(".");
-$projectContents = '';
+$projectNullTextContents = '';
 while ($file = readdir($handle)) 
 {
-	if (is_dir($file) && !in_array($file,$projectsListIgnore)) 
+	if (is_dir($file) && !in_array($file,$projectNullTextsListIgnore)) 
 	{		
-		$projectContents .= '<li><a href="'.$file.'">'.$file.'</a></li>';
+		$projectNullTextContents .= '<li><a href="'.$file.'">'.$file.'</a></li>';
 	}
 }
 closedir($handle);
-if (!isset($projectContents))
-	$projectContents = $langues[$langue]['txtNoProjet'];
+if (!isset($projectNullTextContents))
+	$projectNullTextContents = $languages[$language]['projectNullText'];
 
 
 //initialisation
-$phpExtContents = '';
+$phpExtsContents = '';
 
 // recuperation des extensions PHP
 $loaded_extensions = get_loaded_extensions();
 foreach ($loaded_extensions as $extension)
-	$phpExtContents .= "<li>${extension}</li>";
+	$phpExtsContents .= "<li>${extension}</li>";
 
 
 
@@ -353,7 +353,7 @@ $pageContents = <<< EOPAGE
 
 <html lang="en" xml:lang="en">
 <head>
-	<title>{$langues[$langue]['titreHtml']}</title>
+	<title>{$languages[$language]['htmlTitleText']}</title>
 	<meta http-equiv="Content-Type" content="txt/html; charset=utf-8" />
 
 	<style type="text/css">
@@ -408,11 +408,11 @@ ul {
 	margin: 0;
 	padding: 0 0.2em;
 }
-ul.vhosts, ul.aliases, ul.projects, ul.tools {
+ul.vhosts, ul.aliases, ul.projectNullTexts, ul.tools {
 	list-style: none;
 	line-height: 24px;
 }
-ul.vhosts a, ul.aliases a, ul.projects a, ul.tools a {
+ul.vhosts a, ul.aliases a, ul.projectNullTexts a, ul.tools a {
 	padding-left: 22px;
 	background: url(index.php?img=pngFolder) 0 100% no-repeat;
 }
@@ -482,39 +482,39 @@ a:hover {
 
 	<ul class="utility">
 		<li>Version ${wampserverVersion}</li>
-		<li><a href="?lang={$langues[$langue]['autreLangueLien']}">{$langues[$langue]['autreLangue']}</a></li>
+		<li><a href="?lang={$languages[$language]['otherLanguageAbbreviation']}">{$languages[$language]['otherLanguage']}</a></li>
 	</ul>
 
-	<h2> {$langues[$langue]['titreConf']} </h2>
+	<h2> {$languages[$language]['serverTitleText']} </h2>
 
 	<dl class="content">
-		<dt>{$langues[$langue]['versa']}</dt>
+		<dt>{$languages[$language]['apacheVersion']}</dt>
 		<dd>${apacheVersion} &nbsp;</dd>
-		<dt>{$langues[$langue]['versp']}</dt>
+		<dt>{$languages[$language]['phpVersion']}</dt>
 		<dd>${phpVersion} &nbsp;</dd>
-		<dt>{$langues[$langue]['phpExt']}</dt> 
+		<dt>{$languages[$language]['phpExts']}</dt> 
 		<dd>
 			<ul>
-			${phpExtContents}
+			${phpExtsContents}
 			</ul>
 		</dd>
-		<dt>{$langues[$langue]['versm']}</dt>
+		<dt>{$languages[$language]['mysqlText']}</dt>
 		<dd>${mysqlVersion} &nbsp;</dd>
 	</dl>
-	<h2>{$langues[$langue]['titrePage']}</h2>
+	<h2>{$languages[$language]['toolText']}</h2>
 	<ul class="tools">
 		<li><a href="?phpinfo=1">phpinfo()</a></li>
 		<li><a href="phpmyadmin/">phpmyadmin</a></li>
 	</ul>
-	<h2>{$langues[$langue]['txtProjet']}</h2>
-	<ul class="projects">
-	$projectContents
+	<h2>{$languages[$language]['projectNullText']}</h2>
+	<ul class="projectNullTexts">
+	$projectNullTextContents
 	</ul>
-	<h2>{$langues[$langue]['txtVhosts']}</h2>
+	<h2>{$languages[$language]['vhostsText']}</h2>
 	<ul class="vhosts">
 	${vhostsContents}			
 	</ul>
-	<h2>{$langues[$langue]['txtAlias']}</h2>
+	<h2>{$languages[$language]['aliasText']}</h2>
 	<ul class="aliases">
 	${aliasContents}			
 	</ul>
